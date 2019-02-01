@@ -13,10 +13,9 @@ You also need to have installed Gradle from https://gradle.org/ -
 
   Gradle 4.6 - or above
 
+In this folder,
 
-`cd gs-rest-hateoas/initial`
-
-`gradlew bootRun`
+`./gradlew bootRun`
 
 Then navigate to http://localhost:8080/greeting?name=Jim in a browser, and you
 should see some JSON like this:
