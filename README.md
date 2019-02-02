@@ -8,6 +8,18 @@ and
 
 from samples on the [spring.io](https://spring.io/) website.
 
+You need MySQL. Get it from [dev.mysql.com/downloads/](https://dev.mysql.com/downloads/) if you don't have it.
+
+Run the following command from the command-line
+
+`mysql -u root < src/main/resources/schema-all.sql`
+
+(You don't have to give root as the user, and you may need a password, in which case add `-p`
+
+`mysql -u <USERNAME> -p < src/main/resources/schema-all.sql`
+
+in which case MySQL will ask you for a password).
+
 You need the Java JDK. See https://java.com/en/download/faq/develop.xml.
 
 You also need to have installed Gradle from https://gradle.org/ -
