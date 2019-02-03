@@ -1,6 +1,6 @@
 # clearcut-spring
 
-### This is what clearcut would look like with Spring
+### This is what Clearcut would look like with Spring
 
 [Clearcut](https://github.com/pdxrod/clearcut) is a dependency-injection framework I wrote to avoid
 Spring XML configuration files. But subsequently, Spring has evolved, and no longer needs them.
