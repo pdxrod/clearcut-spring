@@ -49,14 +49,22 @@ In the middle of a lot of logging messages, you should see
 `Converting (firstName: Justin, lastName: Penrose-Smythe) into (firstName: JUSTIN, lastName: PENROSE-SMYTHE)`
 and so on - the 'name processor' just makes names upper case and inserts them into a database.
 
-Then navigate to http://localhost:8080/greeting?name=Justin in a browser, and you
+Then navigate to http://localhost:8080/clearcut?name=Alan in a browser, and you
 should see some JSON like this:
 
-    `{"content":"Hello, Justin!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Justin Penrose-Smythe"}}}`
+    `{"content":"Hello, Alan Bloggs!","_links":{"self":{"href":"http://localhost:8080/clearcut?name=Alan"}}}`
 
 You can
-`curl http://localhost:8080/greeting?name=Justin`
+`curl http://localhost:8080/clearcut?name=Alan`
 instead of using your browser - get `curl` from
 [curl.haxx.se/download.html](https://curl.haxx.se/download.html).
 
-And most important of all, `./gradlew test`.
+Also
+
+`curl 'localhost:8080/clearcut/add?name=Chantel Bloggs'`
+
+and
+
+`$ curl 'localhost:8080/clearcut/all'`
+
+And most important of all, don't forget to `./gradlew test`.
