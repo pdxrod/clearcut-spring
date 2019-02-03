@@ -1,4 +1,11 @@
-A combination of
+# clearcut-spring
+
+### This is what clearcut would look like with Spring
+
+[Clearcut](https://github.com/pdxrod/clearcut) is a dependency-injection framework I wrote to avoid
+Spring XML configuration files. But subsequently, Spring has evolved, and no longer needs them.
+
+Clearcut-spring is combination of
 
 [Building a Hypermedia-Driven RESTful Web Service](https://spring.io/guides/gs/rest-hateoas/)
 
@@ -20,7 +27,7 @@ Run the following command from the command-line
 
 `mysql -u <USERNAME> -p < src/main/resources/schema-all.sql`
 
-in which case MySQL will ask you for a password).
+and MySQL will ask you for a password).
 
 You need the Java JDK. See https://java.com/en/download/faq/develop.xml.
 
@@ -51,3 +58,5 @@ You can
 `curl http://localhost:8080/greeting?name=Justin`
 instead of using your browser - get `curl` from
 [curl.haxx.se/download.html](https://curl.haxx.se/download.html).
+
+And most important of all, `./gradlew test`.
