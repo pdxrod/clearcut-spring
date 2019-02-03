@@ -62,3 +62,10 @@ CREATE TABLE BATCH_JOB_EXECUTION_CONTEXT(
   SERIALIZED_CONTEXT VARCHAR(255),
   JOB_EXECUTION_ID BIGINT
 );
+
+DROP TABLE IF EXISTS hibernate_sequence;
+CREATE TABLE hibernate_sequence(
+  next_val BIGINT,
+  id BIGINT NOT NULL PRIMARY KEY
+);
+INSERT INTO hibernate_sequence( next_val, id ) VALUES ( 1, 1 );
