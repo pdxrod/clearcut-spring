@@ -1,4 +1,4 @@
-package hello;
+package clearcut;
 
 import org.springframework.hateoas.ResourceSupport;
 

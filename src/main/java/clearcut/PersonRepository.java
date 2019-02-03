@@ -1,8 +1,8 @@
-package hello;
+package clearcut;
 
 import org.springframework.data.repository.CrudRepository;
 
-import hello.Person;
+import clearcut.Person;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called personRepository
 // CRUD refers Create, Read, Update, Delete

@@ -1,4 +1,4 @@
-package hello;
+package clearcut;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import hello.Person;
-import hello.PersonRepository;
+import clearcut.Person;
+import clearcut.PersonRepository;
 
 @RestController
 @Controller
@@ -28,7 +28,7 @@ public class GreetingController {
 
     @RequestMapping("/greeting")
     public HttpEntity<Greeting> greeting(
-            @RequestParam(value = "name", required = false, defaultValue = "World") String name) {
+            @RequestParam(value = "name", required = false, defaultValue = "Joe Bloggs") String name) {
 
         Greeting greeting = new Greeting(String.format(TEMPLATE, name));
         greeting.add(linkTo(methodOn(GreetingController.class).greeting(name)).withSelfRel());
@@ -37,8 +37,7 @@ public class GreetingController {
     }
 
   	@GetMapping(path="/add") // Map ONLY GET Requests
-  	public @ResponseBody String addNewPerson (@RequestParam String name
-  			, @RequestParam String email) {
+  	public @ResponseBody String addNewPerson (@RequestParam String name, @RequestParam String email) {
 
   		Person n = new Person();
   		n.setName(name);
