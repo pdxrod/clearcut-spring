@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'gs-rest-hateoas'
+    baseName = 'springboot-simple'
     version =  '0.1.0'
 }
 
@@ -27,8 +27,10 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-hateoas")
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-batch")
-    compile("org.hsqldb:hsqldb")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("mysql:mysql-connector-java")
     testCompile("com.jayway.jsonpath:json-path")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")

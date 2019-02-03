@@ -66,8 +66,8 @@ public class BatchConfiguration {
 
     // tag::jobstep[]
     @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
-        return jobBuilderFactory.get("importUserJob")
+    public Job importPersonJob(JobCompletionNotificationListener listener, Step step1) {
+        return jobBuilderFactory.get("importPersonJob")
             .incrementer(new RunIdIncrementer())
             .listener(listener)
             .flow(step1)

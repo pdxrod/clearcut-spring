@@ -2,6 +2,8 @@ A combination of
 
 [Building a Hypermedia-Driven RESTful Web Service](https://spring.io/guides/gs/rest-hateoas/)
 
+[Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+
 and
 
 [Creating a Batch Service](https://spring.io/guides/gs/batch-processing/)
@@ -44,3 +46,8 @@ Then navigate to http://localhost:8080/greeting?name=Justin in a browser, and yo
 should see some JSON like this:
 
     `{"content":"Hello, Jim!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Justin"}}}`
+
+You can
+`curl http://localhost:8080/greeting?name=Justin`
+instead of using your browser - get `curl` from
+[curl.haxx.se/download.html](https://curl.haxx.se/download.html).
