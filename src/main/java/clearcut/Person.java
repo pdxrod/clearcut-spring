@@ -43,7 +43,7 @@ public class Person {
   	}
 
   	public void setName(String name) {
-      String[] arr = name.split( " " );
+      String[] arr = name.split( "\\s+" );
       if( arr.length < 2 || mt( arr[ 1 ] )) {
         this.firstName = arr[ 0 ];
         this.lastName = "Bloggs"; // Default last name, but not first name
