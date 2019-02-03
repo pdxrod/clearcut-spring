@@ -45,7 +45,7 @@ public class PersonTest extends TestCase {
           assertEquals( person.getFirstName(), "Fred" );
           assertEquals( person.getLastName(), "Smith" );
           personRepository.save(person);
-          // assert new row in people table
+          // assert new row in person table
   }
 
 }

@@ -2,8 +2,8 @@ DROP DATABASE IF EXISTS springboot_simple;
 CREATE DATABASE springboot_simple;
 USE springboot_simple;
 
-DROP TABLE IF EXISTS people;
-CREATE TABLE people  (
+DROP TABLE IF EXISTS person;
+CREATE TABLE person  (
   person_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(255),
   last_name VARCHAR(255)
