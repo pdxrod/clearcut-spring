@@ -25,7 +25,7 @@ Run the following command from the command-line
 
 (You don't have to give root as the user, and you may need a password, in which case add `-p`
 
-`mysql -u <USERNAME> -p < src/main/resources/schema-all.sql`
+`mysql -u USERNAME -p < src/main/resources/schema-all.sql`
 
 and MySQL will ask you for a password).
 

@@ -18,6 +18,10 @@ public class Person {
       return str == null ? "" : str;
     }
 
+    public static boolean mt( String str ) {
+      return str == null || str.trim() == "";
+    }
+
     public Person() {
     }
 
@@ -40,8 +44,13 @@ public class Person {
 
   	public void setName(String name) {
       String[] arr = name.split( " " );
-  		this.firstName = arr[ 0 ];
-      this.lastName = arr[ 1 ];
+      if( arr.length < 2 || mt( arr[ 1 ] )) {
+        this.firstName = arr[ 0 ];
+        this.lastName = "Bloggs"; // Default last name, but not first name
+      } else {
+  		  this.firstName = arr[ 0 ];
+        this.lastName = arr[ 1 ];
+      }
   	}
 
     public void setFirstName(String firstName) {

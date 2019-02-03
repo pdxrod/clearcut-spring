@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.SQLException;
-import java.lang.reflect.Constructor;
 
 import org.junit.Test;
 import junit.framework.TestCase;
@@ -16,8 +15,15 @@ public class PersonTest extends TestCase {
 	public PersonTest() {
 	}
 
-	public void testPerson() throws Exception {
-		assertEquals(true, ! false);
+	public void testPersonName() throws Exception {
+    Person person = new Person();
+    person.setName( "John Smith" );
+    assertEquals( person.getFirstName(), "John" );
+    assertEquals( person.getLastName(), "Smith" );
+
+    person.setName( "Fred" );
+    assertEquals( person.getFirstName(), "Fred" );
+    assertEquals( person.getLastName(), "Bloggs" );
 	}
 
 }
