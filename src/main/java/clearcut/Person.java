@@ -7,71 +7,71 @@ import javax.persistence.Id;
 
 @Entity
 public class Person {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private Integer id;
 
-    private String lastName;
-    private String firstName;
+  private String lastName;
+  private String firstName;
 
-    public static String notNull( String str ) {
-      return str == null ? "" : str;
-    }
+  public static String notNull( String str ) {
+          return str == null ? "" : str;
+  }
 
-    public static boolean mt( String str ) {
-      return str == null || str.trim() == "";
-    }
+  public static boolean mt( String str ) {
+          return str == null || str.trim() == "";
+  }
 
-    public Person() {
-    }
+  public Person() {
+  }
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+  public Person(String firstName, String lastName) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+  }
 
-    public Integer getId() {
-  		return id;
-  	}
+  public Integer getId() {
+          return id;
+  }
 
-  	public void setId(Integer id) {
-  		this.id = id;
-  	}
+  public void setId(Integer id) {
+          this.id = id;
+  }
 
-  	public String getName() {
-      return notNull(getFirstName()) + " " + notNull(getLastName());
-  	}
+  public String getName() {
+          return notNull(getFirstName()) + " " + notNull(getLastName());
+  }
 
-  	public void setName(String name) {
-      String[] arr = name.split( "\\s+" );
-      if( arr.length < 2 || mt( arr[ 1 ] )) {
-        this.firstName = arr[ 0 ];
-        this.lastName = "Bloggs"; // Default last name, but not first name
-      } else {
-  		  this.firstName = arr[ 0 ];
-        this.lastName = arr[ 1 ];
-      }
-  	}
+  public void setName(String name) {
+          String[] arr = name.split( "\\s+" );
+          if( arr.length < 2 || mt( arr[ 1 ] )) {
+                  this.firstName = arr[ 0 ];
+                  this.lastName = "Bloggs"; // Default last name, but not first name
+          } else {
+                  this.firstName = arr[ 0 ];
+                  this.lastName = arr[ 1 ];
+          }
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setFirstName(String firstName) {
+          this.firstName = firstName;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getFirstName() {
+          return firstName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getLastName() {
+          return lastName;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setLastName(String lastName) {
+          this.lastName = lastName;
+  }
 
-    @Override
-    public String toString() {
-        return "firstName: " + firstName + ", lastName: " + lastName;
-    }
+  @Override
+  public String toString() {
+          return "firstName: " + firstName + ", lastName: " + lastName;
+  }
 
 }

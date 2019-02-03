@@ -22,30 +22,30 @@ public class PersonTest extends TestCase {
   private PersonRepository personRepository;
 
   public PersonTest() {
-	}
+  }
 
   @Test
-	public void testPersonName() throws Exception {
-    Person person = new Person();
-    person.setName( "John                Smith" );
-    assertEquals( person.getFirstName(), "John" );
-    assertEquals( person.getLastName(), "Smith" );
-    assertEquals( person.toString(), "firstName: John, lastName: Smith" );
+  public void testPersonName() throws Exception {
+          Person person = new Person();
+          person.setName( "John                Smith" );
+          assertEquals( person.getFirstName(), "John" );
+          assertEquals( person.getLastName(), "Smith" );
+          assertEquals( person.toString(), "firstName: John, lastName: Smith" );
 
-    person.setName( "Fred" );
-    assertEquals( person.getFirstName(), "Fred" );
-    assertEquals( person.getLastName(), "Bloggs" );
-    assertEquals( person.toString(), "firstName: Fred, lastName: Bloggs" );
-	}
+          person.setName( "Fred" );
+          assertEquals( person.getFirstName(), "Fred" );
+          assertEquals( person.getLastName(), "Bloggs" );
+          assertEquals( person.toString(), "firstName: Fred, lastName: Bloggs" );
+  }
 
   @Test
   public void testPersonAdd() throws Exception {
-    Person person = new Person();
-    person.setName( "Fred Smith" );
-    assertEquals( person.getFirstName(), "Fred" );
-    assertEquals( person.getLastName(), "Smith" );
-    personRepository.save(person);
-    // assert new row in people table
+          Person person = new Person();
+          person.setName( "Fred Smith" );
+          assertEquals( person.getFirstName(), "Fred" );
+          assertEquals( person.getLastName(), "Smith" );
+          personRepository.save(person);
+          // assert new row in people table
   }
 
 }

@@ -52,7 +52,7 @@ and so on - the 'name processor' just makes names upper case and inserts them in
 Then navigate to http://localhost:8080/greeting?name=Justin in a browser, and you
 should see some JSON like this:
 
-    `{"content":"Hello, Jim!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Justin"}}}`
+    `{"content":"Hello, Justin!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Justin Penrose-Smythe"}}}`
 
 You can
 `curl http://localhost:8080/greeting?name=Justin`
