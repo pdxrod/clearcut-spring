@@ -76,6 +76,7 @@ public class GreetingController {
     BatchConfiguration batchConfiguration = new BatchConfiguration();
     DataSource dataSource = new MyDataSourceFactory().getMySQLDataSource();
     JdbcBatchItemWriter<Person> writer = batchConfiguration.writer( dataSource );
+    writer.afterPropertiesSet();
     writer.write( list );
   }
 
