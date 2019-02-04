@@ -4,7 +4,7 @@ USE springboot_simple;
 
 DROP TABLE IF EXISTS person;
 CREATE TABLE person  (
-  person_id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(255),
   last_name VARCHAR(255)
 );

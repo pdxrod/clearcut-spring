@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -54,6 +55,10 @@ public class PersonTest extends TestCase {
           assertEquals( person.getFirstName(), "Fred" );
           assertEquals( person.getLastName(), "Wick" );
           personRepository.save( person );
+// How to find out if there are any rows using Java
+          Iterable<Person> people = personRepository.findAll();
+          Iterator<Person> iterator = people.iterator();
+          assertTrue( iterator.hasNext() ); 
           assertEquals( count + 1, personRepository.count() );
   }
 
