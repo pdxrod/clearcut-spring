@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.PreparedStatement;
+import java.sql.Array;
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+// Thanks to https://stackoverflow.com/questions/23435937/how-to-test-spring-data-repositories - 'heez', March 2017
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PersonTest extends TestCase {
@@ -46,35 +48,37 @@ public class PersonTest extends TestCase {
 
   @Test
   public void testPersonAdd() throws Exception {
-          int count = select( "person" );
+          long count = personRepository.count();
           Person person = new Person();
-          person.setName( "Fred Smith" );
+          person.setName( "Fred Wick" );
           assertEquals( person.getFirstName(), "Fred" );
-          assertEquals( person.getLastName(), "Smith" );
-          personRepository.save(person);
-          assertEquals( select( "person" ), count + 1 );
+          assertEquals( person.getLastName(), "Wick" );
+          personRepository.save( person );
+          assertEquals( count + 1, personRepository.count() );
   }
 
-  private int select(String tableName) throws SQLException {
+  private int showPeople() throws SQLException {
     Connection con = null;
-    int columnCount = 0;
-    PreparedStatement statement = null;
+    int count = 0;
     try {
       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springboot_simple", "root", "");
-      String sql = "select * from " + tableName;
-
-			statement = con.prepareStatement(sql);
+      String sql = "select first_name, last_name from person";
+			PreparedStatement statement = con.prepareStatement( sql );
 			ResultSet resultset = statement.executeQuery();
-
-			ResultSetMetaData metaData = resultset.getMetaData();
-			columnCount = metaData.getColumnCount();
+      resultset.first();
+      while( resultset.next() ) {
+        String firstName = resultset.getString( "first_name" );
+        String lastName = resultset.getString( "last_name" );
+        System.out.println( "\n\n\n\n************************ "+firstName+" "+lastName);
+        ++ count;
+      }
     } finally {
       try {
         con.close();
       } catch (Exception e) {
       }
     }
-    return columnCount;
+    return count;
   }
 
 }
