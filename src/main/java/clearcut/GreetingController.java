@@ -33,11 +33,16 @@ public class GreetingController {
     return new ResponseEntity<>(greeting, HttpStatus.OK);
   }
 
-  @GetMapping(path="/add")     // Map ONLY GET Requests 
+  @GetMapping(path="/add")     // Map ONLY GET Requests
   public @ResponseBody String addNewPerson (@RequestParam String name) {
     Person n = new Person();
     n.setName(name);
     personRepository.save(n);
-    return "Saved";
+    return String.format( "{\"name\": \"%s\", \"saved\": true}\n", name );
+  }
+
+  @GetMapping(path="/all")
+  public @ResponseBody Iterable<Person> getAllPersons() {
+    return personRepository.findAll();
   }
 }
