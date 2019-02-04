@@ -49,22 +49,31 @@ In the middle of a lot of logging messages, you should see
 `Converting (firstName: Justin, lastName: Penrose-Smythe) into (firstName: JUSTIN, lastName: PENROSE-SMYTHE)`
 and so on - the 'name processor' just makes names upper case and inserts them into a database.
 
-Then navigate to http://localhost:8080/clearcut?name=Alan in a browser, and you
+Then navigate to curl http://localhost:8080/greeting?name=Alan in a browser, and you
 should see some JSON like this:
 
-    `{"content":"Hello, Alan Bloggs!","_links":{"self":{"href":"http://localhost:8080/clearcut?name=Alan"}}}`
+    `{"content":"Hello, Alan!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Alan"}}}`
 
 You can
-`curl http://localhost:8080/clearcut?name=Alan`
+
+`curl http://localhost:8080/greeting?name=Alan`
+
 instead of using your browser - get `curl` from
 [curl.haxx.se/download.html](https://curl.haxx.se/download.html).
 
 Also
 
-`curl 'localhost:8080/clearcut/add?name=Chantel Bloggs'`
+`curl http://localhost:8080/add?name=Alan`
+
+`curl http://localhost:8080/add?name=Chantel+Bloggs`
+
+    `{"name": "Chantel Bloggs", "saved": true}`
 
 and
 
-`$ curl 'localhost:8080/clearcut/all'`
+`curl http://localhost:8080/all`
+
+    `[{"id":1,"lastName":"Bloggs","firstName":"Alan","name":"Alan Bloggs"},
+      {"id":2,"lastName":"Bloggs","firstName":"Chantel","name":"Chantel Bloggs"}]`
 
 And most important of all, don't forget to `./gradlew test`.

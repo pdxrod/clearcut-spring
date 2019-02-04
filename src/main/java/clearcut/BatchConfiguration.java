@@ -22,12 +22,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
 
   public static int CHUNK_SIZE = 5;
+  private Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 
   @Autowired
   public JobBuilderFactory jobBuilderFactory;
@@ -67,6 +70,7 @@ public class BatchConfiguration {
   // tag::jobstep[]
   @Bean
   public Job importPersonJob(JobCompletionNotificationListener listener, Step step1) {
+          log.debug( "importPersonJob" );
           return jobBuilderFactory.get("importPersonJob")
                  .incrementer(new RunIdIncrementer())
                  .listener(listener)
