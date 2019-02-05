@@ -49,7 +49,7 @@ In the middle of a lot of logging messages, you should see
 `Converting (firstName: Justin, lastName: Penrose-Smythe) into (firstName: JUSTIN, lastName: PENROSE-SMYTHE)`
 and so on - the 'name processor' just makes names upper case and inserts them into a database.
 
-Then navigate to curl http://localhost:8080/greeting?name=Alan in a browser, and you
+Then navigate to http://localhost:8080/greeting?name=Alan in a browser, and you
 should see some JSON like this:
 
      {"content":"Hello, Alan!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Alan"}}}
