@@ -5,11 +5,13 @@
 [Clearcut](https://github.com/pdxrod/clearcut) is a dependency-injection framework I wrote to avoid
 Spring XML configuration files. But subsequently, Spring has evolved, and no longer needs them.
 
-Clearcut-spring is combination of
+clearcut-spring is combination of
 
 [Building a Hypermedia-Driven RESTful Web Service](https://spring.io/guides/gs/rest-hateoas/)
 
 [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+
+[Consuming a RESTful Web Service](https://spring.io/guides/gs/consuming-rest/)
 
 and
 
