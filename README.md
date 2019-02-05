@@ -52,7 +52,7 @@ and so on - the 'name processor' just makes names upper case and inserts them in
 Then navigate to curl http://localhost:8080/greeting?name=Alan in a browser, and you
 should see some JSON like this:
 
-    `{"content":"Hello, Alan!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Alan"}}}`
+     {"content":"Hello, Alan!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Alan"}}}
 
 You can
 
@@ -67,13 +67,13 @@ Also
 
 `curl http://localhost:8080/add?name=Chantel+Bloggs`
 
-    `{"name": "Chantel Bloggs", "saved": true}`
+     {"name": "Chantel Bloggs", "saved": true}
 
 and
 
 `curl http://localhost:8080/all`
 
-    `[{"id":1,"lastName":"Bloggs","firstName":"Alan","name":"Alan Bloggs"},
-      {"id":2,"lastName":"Bloggs","firstName":"Chantel","name":"Chantel Bloggs"}]`
+     [{"id":1,"lastName":"Bloggs","firstName":"Alan","name":"Alan Bloggs"},
+     {"id":2,"lastName":"Bloggs","firstName":"Chantel","name":"Chantel Bloggs"}]
 
 And most important of all, don't forget to `./gradlew test`.
