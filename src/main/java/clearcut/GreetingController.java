@@ -3,6 +3,7 @@ package clearcut;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.SQLException;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -80,14 +81,14 @@ public class GreetingController {
     AFactory factory = new AFactory();
     factory.delete();
 
+    DataSource dataSource = factory.getMySQLDataSource();
     BatchConfiguration batchConfiguration = new BatchConfiguration();
     JdbcBatchItemWriter<Person> writer = batchConfiguration.writer( dataSource );
     PersonItemProcessor processor = batchConfiguration.processor();
-    Person person = null;
-    List<Person> list = new ArrayList<Person>();
 
     String csvFile = factory.getFile( "sample-data.csv" );
     BufferedReader br = new BufferedReader(new FileReader(csvFile));
+    List<Person> list = new ArrayList<Person>();
     String line = null;
     while( (line = br.readLine()) != null ) {
       if( line.indexOf( COMMA ) > 0 ) {
@@ -114,7 +115,7 @@ public class GreetingController {
 
   private class AFactory {
 
-    public void delete() {
+    public void delete() throws IOException, SQLException {
       BatchConfiguration batchConfiguration = new BatchConfiguration();
       DataSource dataSource = getMySQLDataSource();
       Connection connection = dataSource.getConnection();
@@ -130,7 +131,7 @@ public class GreetingController {
       String theFile = projectPath + "/src/main/resources/" + fileName;
       file = new File(theFile);
       if( ! file.exists() ) throw new IOException( "File " + theFile + " does not exist" );
-      return propsFile;
+      return theFile;
     }
 
     public DataSource getMySQLDataSource() throws IOException {
