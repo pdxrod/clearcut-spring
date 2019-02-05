@@ -40,6 +40,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 @RestController
 public class GreetingController {
   private static boolean started = false;
+  private final String COMMA = ",";
 
   @Autowired
   private PersonRepository personRepository;
@@ -75,25 +76,22 @@ public class GreetingController {
   public void startUp() throws Exception {
     if( started ) return;
     started = true;
-    BatchConfiguration batchConfiguration = new BatchConfiguration();
-    DataSource dataSource = new MySQLDataSourceFactory().getMySQLDataSource();
-    Connection connection = dataSource.getConnection();
-    Statement statement = connection.createStatement();
-    statement.execute( "DELETE FROM person;" );
 
+    AFactory factory = new AFactory();
+    factory.delete();
+
+    BatchConfiguration batchConfiguration = new BatchConfiguration();
     JdbcBatchItemWriter<Person> writer = batchConfiguration.writer( dataSource );
     PersonItemProcessor processor = batchConfiguration.processor();
     Person person = null;
     List<Person> list = new ArrayList<Person>();
 
-    File file = new File(".");
-    String projectPath = file.getAbsolutePath();
-    String csvFile = projectPath + "/src/main/resources/" + "sample-data.csv";
+    String csvFile = factory.getFile( "sample-data.csv" );
     BufferedReader br = new BufferedReader(new FileReader(csvFile));
     String line = null;
     while( (line = br.readLine()) != null ) {
-      if( line.indexOf( "," ) > 0 ) {
-        String[] text = line.split( "," );
+      if( line.indexOf( COMMA ) > 0 ) {
+        String[] text = line.split( COMMA );
         Person p = new Person( text[0], text[1] );
         p = processor.process( p );
         list.add( p );
@@ -102,10 +100,7 @@ public class GreetingController {
 
     writer.afterPropertiesSet(); // You have to do this, or you get a null pointer exception
     writer.write( list );
-    try {
-      br.close();
-      connection.close();
-    } catch (Exception e) { }    // There's not much you can do about this
+    try { br.close(); } catch (Exception e) {} // There's not much you can do about this
 
     // FlatFileItemReader<Person> reader = batchConfiguration.reader();
     // StepBuilderFactory stepBuilderFactory = batchConfiguration.stepBuilderFactory;
@@ -117,20 +112,34 @@ public class GreetingController {
     // simpleStepBuilder.build();
   }
 
-  private class MySQLDataSourceFactory {
+  private class AFactory {
 
-    public DataSource getMySQLDataSource() throws IOException {
-      Properties props = new Properties();
+    public void delete() {
+      BatchConfiguration batchConfiguration = new BatchConfiguration();
+      DataSource dataSource = getMySQLDataSource();
+      Connection connection = dataSource.getConnection();
+      Statement statement = connection.createStatement();
+      statement.execute( "DELETE FROM person;" );
+      try { connection.close(); } catch (Exception e) { }
+    }
+
+    public String getFile( String fileName ) throws IOException {
       FileInputStream fis = null;
-      MysqlDataSource mysqlDS = null;
       File file = new File(".");
       String projectPath = file.getAbsolutePath();
-      String propsFile = projectPath + "/src/main/resources/" + "application.properties";
-      file = new File(propsFile);
-      if( ! file.exists() ) throw new IOException( "File " + propsFile + " does not exist" );
-      fis = new FileInputStream(file);
+      String theFile = projectPath + "/src/main/resources/" + fileName;
+      file = new File(theFile);
+      if( ! file.exists() ) throw new IOException( "File " + theFile + " does not exist" );
+      return propsFile;
+    }
+
+    public DataSource getMySQLDataSource() throws IOException {
+      String propsFile = getFile( "application.properties" );
+      File file = new File(propsFile);
+      FileInputStream fis = new FileInputStream(file);
+      Properties props = new Properties();
       props.load(fis);
-      mysqlDS = new MysqlDataSource();
+      MysqlDataSource mysqlDS = new MysqlDataSource();
       mysqlDS.setURL(props.getProperty("spring.datasource.url"));
       mysqlDS.setUser(props.getProperty("spring.datasource.username"));
       mysqlDS.setPassword(props.getProperty("spring.datasource.password"));
