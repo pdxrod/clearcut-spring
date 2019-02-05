@@ -1,6 +1,8 @@
 package clearcut;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -74,7 +76,11 @@ public class GreetingController {
     if( started ) return;
     started = true;
     BatchConfiguration batchConfiguration = new BatchConfiguration();
-    DataSource dataSource = new MyDataSourceFactory().getMySQLDataSource();
+    DataSource dataSource = new MySQLDataSourceFactory().getMySQLDataSource();
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+    statement.execute( "DELETE FROM person;" );
+
     JdbcBatchItemWriter<Person> writer = batchConfiguration.writer( dataSource );
     PersonItemProcessor processor = batchConfiguration.processor();
     Person person = null;
@@ -98,6 +104,7 @@ public class GreetingController {
     writer.write( list );
     try {
       br.close();
+      connection.close();
     } catch (Exception e) { }    // There's not much you can do about this
 
     // FlatFileItemReader<Person> reader = batchConfiguration.reader();
@@ -110,7 +117,7 @@ public class GreetingController {
     // simpleStepBuilder.build();
   }
 
-  private class MyDataSourceFactory {
+  private class MySQLDataSourceFactory {
 
     public DataSource getMySQLDataSource() throws IOException {
       Properties props = new Properties();
