@@ -43,20 +43,22 @@ public class GreetingController {
   private PersonRepository personRepository;
   private static final String TEMPLATE = "Hello, %s!";
 
+  public GreetingController() throws Exception {
+    startUp();
+  }
+
   @RequestMapping("/greeting")
   public HttpEntity<Greeting> greeting(
-  @RequestParam(value = "name", required = false, defaultValue = "World") String name) throws Exception {
+  @RequestParam(value = "name", required = false, defaultValue = "World") String name) {
 
-    startUp();
     Greeting greeting = new Greeting(String.format(TEMPLATE, name));
     greeting.add(linkTo(methodOn(GreetingController.class).greeting(name)).withSelfRel());
     return new ResponseEntity<>(greeting, HttpStatus.OK);
   }
 
   @GetMapping(path="/add")     // Map ONLY GET Requests
-  public @ResponseBody String addNewPerson (@RequestParam String name) throws Exception {
+  public @ResponseBody String addNewPerson (@RequestParam String name) {
 
-    startUp();
     Person n = new Person();
     n.setName(name);
     personRepository.save(n);
@@ -64,8 +66,7 @@ public class GreetingController {
   }
 
   @GetMapping(path="/all")
-  public @ResponseBody Iterable<Person> getAllPersons() throws Exception {
-    startUp();
+  public @ResponseBody Iterable<Person> getAllPersons() {
     return personRepository.findAll();
   }
 
@@ -97,7 +98,7 @@ public class GreetingController {
     writer.write( list );
     try {
       br.close();
-    } catch (Exception e) { }
+    } catch (Exception e) { }    // There's not much you can do about this
 
     // FlatFileItemReader<Person> reader = batchConfiguration.reader();
     // StepBuilderFactory stepBuilderFactory = batchConfiguration.stepBuilderFactory;
