@@ -1,6 +1,8 @@
 package clearcut;
 
 import javax.sql.DataSource;
+import javax.validation.Valid;
+
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -33,13 +35,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import clearcut.Person;
 import clearcut.PersonRepository;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 @RestController
-public class GreetingController {
+public class GreetingController implements WebMvcConfigurer {
   private static boolean started = false;
   private final String COMMA = ",";
 
@@ -49,6 +55,11 @@ public class GreetingController {
 
   public GreetingController() throws Exception {
     startUp();
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+      registry.addViewController("/results").setViewName("results");
   }
 
   @RequestMapping("/greeting")
@@ -72,6 +83,21 @@ public class GreetingController {
   @GetMapping(path="/all")
   public @ResponseBody Iterable<Person> getAllPersons() {
     return personRepository.findAll();
+  }
+
+  @GetMapping(path="/")
+  public String showForm(PersonForm personForm) {
+      return "form";
+  }
+
+  @PostMapping(path="/")
+  public String checkPersonInfo(@Valid PersonForm personForm, BindingResult bindingResult) {
+
+      if (bindingResult.hasErrors()) {
+          return "form";
+      }
+
+      return "redirect:/results";
   }
 
   public void startUp() throws Exception {
