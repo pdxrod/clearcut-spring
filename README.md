@@ -13,6 +13,8 @@ clearcut-spring is combination of
 
 [Consuming a RESTful Web Service](https://spring.io/guides/gs/consuming-rest/)
 
+[Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks/)
+
 and
 
 [Creating a Batch Service](https://spring.io/guides/gs/batch-processing/)
@@ -31,7 +33,7 @@ Run the following command from the command-line
 
 and MySQL will ask you for a password).
 
-You need the Java JDK. See https://java.com/en/download/faq/develop.xml.
+You need the Java JDK, 1.8 or above. See https://java.com/en/download/faq/develop.xml.
 
 You also need to have installed Gradle from https://gradle.org/ -
 
@@ -48,8 +50,11 @@ In this folder,
 `./gradlew bootRun`
 
 In the middle of a lot of logging messages, you should see
-`Converting (firstName: Justin, lastName: Penrose-Smythe) into (firstName: JUSTIN, lastName: PENROSE-SMYTHE)`
-and so on - the 'name processor' just makes names upper case and inserts them into a database.
+`Converting (firstName: Justin, lastName: Penrose) into (firstName: Justin, lastName: Penrose-Smythe)`
+and so on - the 'name processor' just adds 'Smythe' to the last name and inserts it into a database.
+
+Every five seconds, you'll see the time output. Just adding @EnableScheduling to Application.java and a file called
+ScheduledTasks.java makes this happen. In the real world, you could schedule something useful.
 
 Then navigate to http://localhost:8080/greeting?name=Alan in a browser, and you
 should see some JSON like this:
@@ -78,4 +83,4 @@ and
      [{"id":1,"lastName":"Bloggs","firstName":"Alan","name":"Alan Bloggs"},
      {"id":2,"lastName":"Bloggs","firstName":"Chantel","name":"Chantel Bloggs"}]
 
-And most important of all, don't forget to `./gradlew test`.
+And most important of all, don't forget to `./gradlew test`. And see if you can make PersonTest pass.
