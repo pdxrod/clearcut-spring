@@ -33,7 +33,7 @@ Run the following command from the command-line
 
 `mysql -u USERNAME -p < src/main/resources/schema-all.sql`
 
-and MySQL will ask you for a password).
+and MySQL will ask you for a password. application.properties should contain the MySQL username/password).
 
 You need the Java JDK, 1.8 or above. See https://java.com/en/download/faq/develop.xml.
 
@@ -55,7 +55,7 @@ In the middle of a lot of logging messages, you should see
 `Converting (firstName: Justin, lastName: Penrose) into (firstName: Justin, lastName: Penrose-Smythe)`
 and so on - the 'name processor' just adds 'Smythe' to the last name and inserts it into a database.
 
-Every five seconds, you'll see the time output. Just adding @EnableScheduling to Application.java and a file called
+Every 59 seconds, you'll see the time output. Just adding @EnableScheduling to Application.java and a file called
 ScheduledTasks.java makes this happen. In the real world, you could schedule something useful.
 
 Then navigate to http://localhost:8080/greeting?name=Alan in a browser, and you

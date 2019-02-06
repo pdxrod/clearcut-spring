@@ -45,7 +45,7 @@ import clearcut.PersonRepository;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 @RestController
-public class GreetingController implements WebMvcConfigurer {
+public class GreetingController {
   private static boolean started = false;
   private final String COMMA = ",";
 
@@ -55,11 +55,6 @@ public class GreetingController implements WebMvcConfigurer {
 
   public GreetingController() throws Exception {
     startUp();
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-      registry.addViewController("/results").setViewName("results");
   }
 
   @RequestMapping("/greeting")
@@ -85,34 +80,18 @@ public class GreetingController implements WebMvcConfigurer {
     return personRepository.findAll();
   }
 
-  @GetMapping(path="/")
-  public String showForm(PersonForm personForm) {
-      return "form";
-  }
-
-  @PostMapping(path="/")
-  public String checkPersonInfo(@Valid PersonForm personForm, BindingResult bindingResult) {
-
-      if (bindingResult.hasErrors()) {
-          return "form";
-      }
-
-      return "redirect:/results";
-  }
-
-  public void startUp() throws Exception {
+  private void startUp() throws Exception {
     if( started ) return;
     started = true;
 
     AFactory factory = new AFactory();
     factory.delete();
-
     DataSource dataSource = factory.getMySQLDataSource();
     BatchConfiguration batchConfiguration = new BatchConfiguration();
     JdbcBatchItemWriter<Person> writer = batchConfiguration.writer( dataSource );
     PersonItemProcessor processor = batchConfiguration.processor();
 
-    String csvFile = factory.getFile( "sample-data.csv" );
+    String csvFile = factory.getFullPath( "sample-data.csv" );
     BufferedReader br = new BufferedReader(new FileReader(csvFile));
     List<Person> list = new ArrayList<Person>();
     String line = null;
@@ -150,7 +129,7 @@ public class GreetingController implements WebMvcConfigurer {
       try { connection.close(); } catch (Exception e) { }
     }
 
-    public String getFile( String fileName ) throws IOException {
+    public String getFullPath( String fileName ) throws IOException {
       FileInputStream fis = null;
       File file = new File(".");
       String projectPath = file.getAbsolutePath();
@@ -161,7 +140,7 @@ public class GreetingController implements WebMvcConfigurer {
     }
 
     public DataSource getMySQLDataSource() throws IOException {
-      String propsFile = getFile( "application.properties" );
+      String propsFile = getFullPath( "application.properties" );
       File file = new File(propsFile);
       FileInputStream fis = new FileInputStream(file);
       Properties props = new Properties();
