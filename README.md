@@ -15,6 +15,8 @@ clearcut-spring is combination of
 
 [Scheduling Tasks](https://spring.io/guides/gs/scheduling-tasks/)
 
+[Validating Form Input](https://spring.io/guides/gs/validating-form-input/)
+
 and
 
 [Creating a Batch Service](https://spring.io/guides/gs/batch-processing/)
