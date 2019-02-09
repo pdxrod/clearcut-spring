@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.stream.Stream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
@@ -56,7 +57,8 @@ public class PersonTest extends TestCase {
 
   @Test
   public void testPersonAdd() throws Exception {
-          long count = personRepository.count();
+          Iterable<Person> people = personRepository.findAll();
+          long count = Stream.of(people).count();
           Person person = new Person();
           person.setName( "Fred Wick" );
           assertEquals( person.getFirstName(), "Fred" );
@@ -64,11 +66,12 @@ public class PersonTest extends TestCase {
           Person saved = personRepository.save( person );
           assertEquals( saved, person );
           new TestHelper().showPeople();
-// How to find out if there are any rows using Java
-          Iterable<Person> people = personRepository.findAll();
+// There are so many fun ways to count a collection in Java
+          people = personRepository.findAll();
           Iterator<Person> iterator = people.iterator();
           assertTrue( iterator.hasNext() );
-          assertEquals( count + 1, personRepository.count() );
+          long newCount = Stream.of(people).count();
+          assertEquals( count + 1, newCount );
   }
 
   private class TestHelper {
