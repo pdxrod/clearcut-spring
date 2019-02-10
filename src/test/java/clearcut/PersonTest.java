@@ -41,6 +41,23 @@ public class PersonTest extends TestCase {
   public PersonTest() {
   }
 
+  private TestHelper testHelper = null;
+  private TestHelper getTestHelper() {
+    if( testHelper == null ) testHelper = new TestHelper();
+    return testHelper;
+  }
+
+  @Test
+  public void testGreetingController() throws Exception {
+    int num = getTestHelper().showAndCountPeople();
+    GreetingController controller = new GreetingController(); // This calls startUp()
+    int newNum = getTestHelper().showAndCountPeople();
+    assertEquals( num + 15, newNum );
+    controller.startUp(); // Has already been called, and does nothing on second attempt
+    newNum = getTestHelper().showAndCountPeople();
+    assertEquals( num + 15, newNum );
+  }
+
   @Test
   public void testPersonName() throws Exception {
           Person person = new Person();
@@ -65,7 +82,7 @@ public class PersonTest extends TestCase {
           assertEquals( person.getLastName(), "Wick" );
           Person saved = personRepository.save( person );
           assertEquals( saved, person );
-          new TestHelper().showPeople();
+          getTestHelper().showAndCountPeople();
 // There are so many fun ways to count a collection in Java
           people = personRepository.findAll();
           Iterator<Person> iterator = people.iterator();
@@ -77,7 +94,7 @@ public class PersonTest extends TestCase {
   private class TestHelper {
     private Logger log = LoggerFactory.getLogger(TestHelper.class);
 
-    public int showPeople() throws SQLException, IOException {
+    public int showAndCountPeople() throws SQLException, IOException {
       int count = 0;
       File file = new File(".");
       String projectPath = file.getAbsolutePath();

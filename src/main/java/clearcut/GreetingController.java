@@ -80,7 +80,7 @@ public class GreetingController {
     return personRepository.findAll();
   }
 
-  private void startUp() throws Exception {
+  public void startUp() throws Exception {
     if( started ) return;
     started = true;
 
