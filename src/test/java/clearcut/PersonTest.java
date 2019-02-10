@@ -49,13 +49,14 @@ public class PersonTest extends TestCase {
 
   @Test
   public void testGreetingController() throws Exception {
-    int num = getTestHelper().showAndCountPeople();
-    GreetingController controller = new GreetingController(); // This calls startUp()
     int newNum = getTestHelper().showAndCountPeople();
-    assertEquals( num + 15, newNum );
-    controller.startUp(); // Has already been called, and does nothing on second attempt
+    assertEquals( 15, newNum );
+    GreetingController controller = new GreetingController();
     newNum = getTestHelper().showAndCountPeople();
-    assertEquals( num + 15, newNum );
+    assertEquals( 15, newNum );
+    controller.startUp(); // Has already been called, and does nothing on subsequent attempts
+    newNum = getTestHelper().showAndCountPeople();
+    assertEquals( 15, newNum );
   }
 
   @Test
