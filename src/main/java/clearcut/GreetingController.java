@@ -42,6 +42,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import clearcut.Person;
 import clearcut.PersonRepository;
+import clearcut.GeneralFactory;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 @RestController
@@ -60,7 +61,6 @@ public class GreetingController {
   @RequestMapping("/greeting")
   public HttpEntity<Greeting> greeting(
   @RequestParam(value = "name", required = false, defaultValue = "Joe Bloggs") String name) {
-
     Greeting greeting = new Greeting(String.format(TEMPLATE, name));
     greeting.add(linkTo(methodOn(GreetingController.class).greeting(name)).withSelfRel());
     return new ResponseEntity<>(greeting, HttpStatus.OK);
@@ -68,7 +68,6 @@ public class GreetingController {
 
   @GetMapping(path="/add")     // Map ONLY GET Requests
   public @ResponseBody String addNewPerson (@RequestParam String name) {
-
     Person n = new Person();
     n.setName(name);
     personRepository.save(n);
@@ -84,7 +83,7 @@ public class GreetingController {
     if( started ) return;
     started = true;
 
-    AFactory factory = new AFactory();
+    GeneralFactory factory = new GeneralFactory();
     factory.delete();
     DataSource dataSource = factory.getMySQLDataSource();
     BatchConfiguration batchConfiguration = new BatchConfiguration();
@@ -116,41 +115,6 @@ public class GreetingController {
     // simpleStepBuilder = simpleStepBuilder.processor(processor);
     // simpleStepBuilder = simpleStepBuilder.writer(writer);
     // simpleStepBuilder.build();
-  }
-
-  private class AFactory {
-
-    public void delete() throws IOException, SQLException {
-      BatchConfiguration batchConfiguration = new BatchConfiguration();
-      DataSource dataSource = getMySQLDataSource();
-      Connection connection = dataSource.getConnection();
-      Statement statement = connection.createStatement();
-      statement.execute( "DELETE FROM person;" );
-      try { connection.close(); } catch (Exception e) { }
-    }
-
-    public String getFullPath( String fileName ) throws IOException {
-      FileInputStream fis = null;
-      File file = new File(".");
-      String projectPath = file.getAbsolutePath();
-      String theFile = projectPath + "/src/main/resources/" + fileName;
-      file = new File(theFile);
-      if( ! file.exists() ) throw new IOException( "File " + theFile + " does not exist" );
-      return theFile;
-    }
-
-    public DataSource getMySQLDataSource() throws IOException {
-      String propsFile = getFullPath( "application.properties" );
-      File file = new File(propsFile);
-      FileInputStream fis = new FileInputStream(file);
-      Properties props = new Properties();
-      props.load(fis);
-      MysqlDataSource mysqlDS = new MysqlDataSource();
-      mysqlDS.setURL(props.getProperty("spring.datasource.url"));
-      mysqlDS.setUser(props.getProperty("spring.datasource.username"));
-      mysqlDS.setPassword(props.getProperty("spring.datasource.password"));
-      return mysqlDS;
-    }
   }
 
 }

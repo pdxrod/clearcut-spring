@@ -49,8 +49,10 @@ public class PersonTest extends TestCase {
 
   @Test
   public void testGreetingController() throws Exception {
+    GeneralFactory factory = new GeneralFactory();
+    factory.delete();
     int newNum = getTestHelper().showAndCountPeople();
-    assertEquals( 15, newNum );
+    assertEquals( 0, newNum );
     GreetingController controller = new GreetingController();
     newNum = getTestHelper().showAndCountPeople();
     assertEquals( 15, newNum );
