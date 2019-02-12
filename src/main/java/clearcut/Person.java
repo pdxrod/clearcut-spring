@@ -30,6 +30,11 @@ public class Person {
           this.lastName = lastName;
   }
 
+  public Person(String name) {
+          this();
+          this.setName( name );
+  }
+
   public Integer getId() {
           return id;
   }

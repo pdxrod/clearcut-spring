@@ -85,4 +85,7 @@ and
      [{"id":1,"lastName":"Bloggs","firstName":"Alan","name":"Alan Bloggs"},
      {"id":2,"lastName":"Bloggs","firstName":"Chantel","name":"Chantel Bloggs"}]
 
-And most important of all, don't forget to `./gradlew test`. And see if you can make PersonTest pass.
+And most important of all, don't forget to `./gradlew test`
+
+Or for just one test, e.g. `./gradlew test --tests clearcut.PersonTest.testPersonRepository`
+

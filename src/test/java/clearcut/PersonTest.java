@@ -41,61 +41,91 @@ public class PersonTest extends TestCase {
   public PersonTest() {
   }
 
+  @Test
+  public void testPersonRepository() throws Exception {
+    personRepository.deleteAll();
+    Iterable<Person> people = personRepository.findAll();
+    int num = getTestHelper().countPeople(people);
+    System.out.println( "\n### "+ num +" people" );
+    assertEquals( 15, num );
+    Person a = new Person( "Fred Smith" );
+    Person b = new Person( "Jim Bloggs" );
+    List<Person> list = new ArrayList<Person>();
+    list.add( a ); list.add( b );
+    personRepository.saveAll( list );
+    people = personRepository.findAll();
+    num = getTestHelper().countPeople(people);
+    assertEquals( 15, num );
+  }
+
+  @Test
+  public void testGreetingController() throws Exception {
+    GeneralFactory factory = factoryFactory();
+    factory.delete();
+    int num = getTestHelper().showAndCountPeople();
+    assertEquals( 0, num );
+    GreetingController controller = new GreetingController();
+    num = getTestHelper().showAndCountPeople();
+    assertEquals( 15, num );
+    controller.startUp(); // Has already been called, and does nothing on subsequent attempts
+    num = getTestHelper().showAndCountPeople();
+    assertEquals( 15, num );
+  }
+
+  @Test
+  public void testPersonName() throws Exception {
+    Person person = new Person();
+    person.setName( "John                Smith" );
+    assertEquals( person.getFirstName(), "John" );
+    assertEquals( person.getLastName(), "Smith" );
+    assertEquals( person.toString(), "firstName: John, lastName: Smith" );
+
+    person.setName( "Fred" );
+    assertEquals( person.getFirstName(), "Fred" );
+    assertEquals( person.getLastName(), "Bloggs" );
+    assertEquals( person.toString(), "firstName: Fred, lastName: Bloggs" );
+  }
+
+  @Test
+  public void testPersonAdd() throws Exception {
+    Iterable<Person> people = personRepository.findAll();
+    long count = Stream.of(people).count();
+    Person person = new Person();
+    person.setName( "Fred Wick" );
+    assertEquals( person.getFirstName(), "Fred" );
+    assertEquals( person.getLastName(), "Wick" );
+    Person saved = personRepository.save( person );
+    assertEquals( saved, person );
+// There are so many fun ways to count a collection in Java
+    people = personRepository.findAll();
+    long newCount = Stream.of(people).count();
+    assertEquals( count + 1, newCount );
+  }
+
   private TestHelper testHelper = null;
   private TestHelper getTestHelper() {
     if( testHelper == null ) testHelper = new TestHelper();
     return testHelper;
   }
 
-  @Test
-  public void testGreetingController() throws Exception {
-    GeneralFactory factory = new GeneralFactory();
-    factory.delete();
-    int newNum = getTestHelper().showAndCountPeople();
-    assertEquals( 0, newNum );
-    GreetingController controller = new GreetingController();
-    newNum = getTestHelper().showAndCountPeople();
-    assertEquals( 15, newNum );
-    controller.startUp(); // Has already been called, and does nothing on subsequent attempts
-    newNum = getTestHelper().showAndCountPeople();
-    assertEquals( 15, newNum );
-  }
-
-  @Test
-  public void testPersonName() throws Exception {
-          Person person = new Person();
-          person.setName( "John                Smith" );
-          assertEquals( person.getFirstName(), "John" );
-          assertEquals( person.getLastName(), "Smith" );
-          assertEquals( person.toString(), "firstName: John, lastName: Smith" );
-
-          person.setName( "Fred" );
-          assertEquals( person.getFirstName(), "Fred" );
-          assertEquals( person.getLastName(), "Bloggs" );
-          assertEquals( person.toString(), "firstName: Fred, lastName: Bloggs" );
-  }
-
-  @Test
-  public void testPersonAdd() throws Exception {
-          Iterable<Person> people = personRepository.findAll();
-          long count = Stream.of(people).count();
-          Person person = new Person();
-          person.setName( "Fred Wick" );
-          assertEquals( person.getFirstName(), "Fred" );
-          assertEquals( person.getLastName(), "Wick" );
-          Person saved = personRepository.save( person );
-          assertEquals( saved, person );
-          getTestHelper().showAndCountPeople();
-// There are so many fun ways to count a collection in Java
-          people = personRepository.findAll();
-          Iterator<Person> iterator = people.iterator();
-          assertTrue( iterator.hasNext() );
-          long newCount = Stream.of(people).count();
-          assertEquals( count + 1, newCount );
+  private GeneralFactory factory = null;
+  private GeneralFactory factoryFactory() {
+    if( factory == null ) factory = new GeneralFactory();
+    return factory;
   }
 
   private class TestHelper {
     private Logger log = LoggerFactory.getLogger(TestHelper.class);
+
+    public int countPeople( Iterable<Person> people ) {
+      int num = 0;
+      Iterator<Person> iterator = people.iterator();
+      while(iterator.hasNext()) {
+        num ++;
+        iterator.next();
+      }
+      return num;
+    }
 
     public int showAndCountPeople() throws SQLException, IOException {
       int count = 0;
