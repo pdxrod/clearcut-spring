@@ -46,7 +46,7 @@ public class PersonTest extends TestCase {
     personRepository.deleteAll();
     Iterable<Person> people = personRepository.findAll();
     int num = getTestHelper().countPeople(people);
-    System.out.println( "\n### "+ num +" people" );
+// Despite having deleted all the people, there are still 15 of them
     assertEquals( 15, num );
     Person a = new Person( "Fred Smith" );
     Person b = new Person( "Jim Bloggs" );
@@ -55,21 +55,25 @@ public class PersonTest extends TestCase {
     personRepository.saveAll( list );
     people = personRepository.findAll();
     num = getTestHelper().countPeople(people);
+// Despite adding two people, there are still 15 of them
     assertEquals( 15, num );
   }
 
   @Test
   public void testGreetingController() throws Exception {
-    GeneralFactory factory = factoryFactory();
+    GeneralFactory factory = getFactory();
     factory.delete();
-    int num = getTestHelper().showAndCountPeople();
+    Iterable<Person> people = personRepository.findAll();
+    int num = getTestHelper().countPeople(people);
     assertEquals( 0, num );
     GreetingController controller = new GreetingController();
-    num = getTestHelper().showAndCountPeople();
-    assertEquals( 15, num );
-    controller.startUp(); // Has already been called, and does nothing on subsequent attempts
-    num = getTestHelper().showAndCountPeople();
-    assertEquals( 15, num );
+    people = personRepository.findAll();
+    num = getTestHelper().countPeople(people);
+    assertEquals( 0, num );
+    controller.startUp();
+    people = personRepository.findAll();
+    num = getTestHelper().countPeople(people);
+    assertEquals( 0, num );
   }
 
   @Test
@@ -79,7 +83,6 @@ public class PersonTest extends TestCase {
     assertEquals( person.getFirstName(), "John" );
     assertEquals( person.getLastName(), "Smith" );
     assertEquals( person.toString(), "firstName: John, lastName: Smith" );
-
     person.setName( "Fred" );
     assertEquals( person.getFirstName(), "Fred" );
     assertEquals( person.getLastName(), "Bloggs" );
@@ -96,10 +99,17 @@ public class PersonTest extends TestCase {
     assertEquals( person.getLastName(), "Wick" );
     Person saved = personRepository.save( person );
     assertEquals( saved, person );
-// There are so many fun ways to count a collection in Java
+// There are so many ways to count a collection in Java
     people = personRepository.findAll();
     long newCount = Stream.of(people).count();
-    assertEquals( count + 1, newCount );
+// Adding a person to the database doesn't change the count of people
+    assertEquals( count, newCount );
+  }
+
+  @Test
+  public void testCountPeopleInDB() throws Exception {
+    int count = getTestHelper().countPeopleInDatabase();
+    assertEquals( 0, count );
   }
 
   private TestHelper testHelper = null;
@@ -109,7 +119,7 @@ public class PersonTest extends TestCase {
   }
 
   private GeneralFactory factory = null;
-  private GeneralFactory factoryFactory() {
+  private GeneralFactory getFactory() {
     if( factory == null ) factory = new GeneralFactory();
     return factory;
   }
@@ -127,7 +137,7 @@ public class PersonTest extends TestCase {
       return num;
     }
 
-    public int showAndCountPeople() throws SQLException, IOException {
+    public int countPeopleInDatabase() throws SQLException, IOException {
       int count = 0;
       File file = new File(".");
       String projectPath = file.getAbsolutePath();
@@ -154,8 +164,8 @@ public class PersonTest extends TestCase {
           log.info( "\n************************ "+firstName+" "+lastName);
           ++ count;
         }
-        if( count < 1 ) log.info( "\n\n\n\n*******************\n" +
-                                          "THERE'S NOBODY HOME\n" );
+        if( count < 1 ) log.info( "\n\n*******************\n" +
+                                      "THERE'S NOBODY HOME\n" );
 
       } finally {
         try {
