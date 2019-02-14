@@ -21,7 +21,7 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
   }
 
   private String toUpperClass( String name ) {
-    return name + "-Smythe";
+    return name.toUpperCase();
   }
 
 }
