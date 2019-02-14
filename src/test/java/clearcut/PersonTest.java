@@ -38,7 +38,26 @@ public class PersonTest extends TestCase {
   @Autowired
   private PersonRepository personRepository;
 
+  @Autowired
+  private FileItemRepository fileItemRepository;
+
   public PersonTest() {
+  }
+
+  @Test
+  public void testFileItemRepository() throws Exception {
+    fileItemRepository.deleteAll();
+    Iterable<FileItem> fileItems = fileItemRepository.findAll();
+    int num = getTestHelper().countFileItems(fileItems);
+    assertEquals( 0, num );
+    FileItem a = new FileItem( "-rw-r--r--  1 EDGE  staff  2974 Feb 12 20:30 README.md" );
+    FileItem b = new FileItem( "-rw-r--r--  1 EDGE  staff  1152 Feb 12 20:30 build.gradle" );
+    List<FileItem> list = new ArrayList<FileItem>();
+    list.add( a ); list.add( b );
+    fileItemRepository.saveAll( list );
+    fileItems = fileItemRepository.findAll();
+    num = getTestHelper().countFileItems(fileItems);
+    assertEquals( 2, num );
   }
 
   @Test
@@ -46,8 +65,7 @@ public class PersonTest extends TestCase {
     personRepository.deleteAll();
     Iterable<Person> people = personRepository.findAll();
     int num = getTestHelper().countPeople(people);
-// Despite having deleted all the people, there are still 15 of them
-    assertEquals( 15, num );
+    assertEquals( 0, num );
     Person a = new Person( "Fred Smith" );
     Person b = new Person( "Jim Bloggs" );
     List<Person> list = new ArrayList<Person>();
@@ -55,8 +73,8 @@ public class PersonTest extends TestCase {
     personRepository.saveAll( list );
     people = personRepository.findAll();
     num = getTestHelper().countPeople(people);
-// Despite adding two people, there are still 15 of them
-    assertEquals( 15, num );
+// Despite adding two people, there are still 0 of them
+    assertEquals( 0, num );
   }
 
   @Test
@@ -130,6 +148,16 @@ public class PersonTest extends TestCase {
     public int countPeople( Iterable<Person> people ) {
       int num = 0;
       Iterator<Person> iterator = people.iterator();
+      while(iterator.hasNext()) {
+        num ++;
+        iterator.next();
+      }
+      return num;
+    }
+
+    public int countFileItems( Iterable<FileItem> fileItems ) {
+      int num = 0;
+      Iterator<FileItem> iterator = fileItems.iterator();
       while(iterator.hasNext()) {
         num ++;
         iterator.next();

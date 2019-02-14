@@ -88,4 +88,3 @@ and
 And most important of all, don't forget to `./gradlew test`
 
 Or for just one test, e.g. `./gradlew test --tests clearcut.PersonTest.testPersonRepository`
-
