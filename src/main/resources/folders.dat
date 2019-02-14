@@ -1,0 +1,202 @@
+total 40
+-rw-r--r--  1 EDGE  staff  2974 Feb 12 20:30 README.md
+drwxr-xr-x  7 EDGE  staff   224 Feb 12 08:56 build
+-rw-r--r--  1 EDGE  staff  1152 Feb 12 20:30 build.gradle
+drwxr-xr-x  3 EDGE  staff    96 Feb  1 13:48 gradle
+-rwxr-xr-x  1 EDGE  staff  5046 Feb  1 13:48 gradlew
+-rw-r--r--  1 EDGE  staff  2314 Feb  1 13:48 gradlew.bat
+drwxr-xr-x  4 EDGE  staff   128 Feb  3 08:03 src
+
+./build:
+total 0
+drwxr-xr-x  3 EDGE  staff   96 Feb 12 08:56 classes
+drwxr-xr-x  3 EDGE  staff   96 Feb 12 08:56 reports
+drwxr-xr-x  3 EDGE  staff   96 Feb 12 13:56 resources
+drwxr-xr-x  3 EDGE  staff   96 Feb 12 13:56 test-results
+drwxr-xr-x  4 EDGE  staff  128 Feb 12 08:56 tmp
+
+./build/classes:
+total 0
+drwxr-xr-x  4 EDGE  staff  128 Feb 12 13:56 java
+
+./build/classes/java:
+total 0
+drwxr-xr-x  3 EDGE  staff  96 Feb 12 13:56 main
+drwxr-xr-x  3 EDGE  staff  96 Feb 12 13:56 test
+
+./build/classes/java/main:
+total 0
+drwxr-xr-x  20 EDGE  staff  640 Feb 14 11:05 clearcut
+
+./build/classes/java/main/clearcut:
+total 152
+-rw-r--r--  1 EDGE  staff  2984 Feb 14 11:05 Application.class
+-rw-r--r--  1 EDGE  staff   861 Feb 14 11:05 BatchConfiguration$1.class
+-rw-r--r--  1 EDGE  staff  6870 Feb 14 11:05 BatchConfiguration.class
+-rw-r--r--  1 EDGE  staff  2290 Feb 14 11:05 FileItem.class
+-rw-r--r--  1 EDGE  staff  1906 Feb 14 11:05 FileItemItemProcessor.class
+-rw-r--r--  1 EDGE  staff   317 Feb 14 11:05 FileItemRepository.class
+-rw-r--r--  1 EDGE  staff  2736 Feb 14 11:05 GeneralFactory.class
+-rw-r--r--  1 EDGE  staff   719 Feb 14 11:05 Greeting.class
+-rw-r--r--  1 EDGE  staff  3906 Feb 14 11:05 GreetingController.class
+-rw-r--r--  1 EDGE  staff  3319 Feb 14 11:05 JobCompletionNotificationListener.class
+-rw-r--r--  1 EDGE  staff  2547 Feb 14 11:05 Person.class
+-rw-r--r--  1 EDGE  staff  1446 Feb 14 11:05 PersonForm.class
+-rw-r--r--  1 EDGE  staff  1837 Feb 14 11:05 PersonItemProcessor.class
+-rw-r--r--  1 EDGE  staff   311 Feb 14 11:05 PersonRepository.class
+-rw-r--r--  1 EDGE  staff  1278 Feb 14 11:05 Quote.class
+-rw-r--r--  1 EDGE  staff  1108 Feb 14 11:05 ScheduledTasks.class
+-rw-r--r--  1 EDGE  staff  1270 Feb 14 11:05 Value.class
+-rw-r--r--  1 EDGE  staff  2064 Feb 14 11:05 WebController.class
+
+./build/classes/java/test:
+total 0
+drwxr-xr-x  5 EDGE  staff  160 Feb 14 11:05 clearcut
+
+./build/classes/java/test/clearcut:
+total 32
+-rw-r--r--  1 EDGE  staff   196 Feb 14 11:05 PersonTest$1.class
+-rw-r--r--  1 EDGE  staff  4132 Feb 14 11:05 PersonTest$TestHelper.class
+-rw-r--r--  1 EDGE  staff  4073 Feb 14 11:05 PersonTest.class
+
+./build/reports:
+total 0
+drwxr-xr-x  3 EDGE  staff  96 Feb 12 13:56 tests
+
+./build/reports/tests:
+total 0
+drwxr-xr-x  7 EDGE  staff  224 Feb 14 11:05 test
+
+./build/reports/tests/test:
+total 8
+drwxr-xr-x  3 EDGE  staff    96 Feb 14 11:05 classes
+drwxr-xr-x  4 EDGE  staff   128 Feb 12 13:56 css
+-rw-r--r--  1 EDGE  staff  2318 Feb 14 11:05 index.html
+drwxr-xr-x  3 EDGE  staff    96 Feb 12 13:56 js
+drwxr-xr-x  3 EDGE  staff    96 Feb 14 11:05 packages
+
+./build/reports/tests/test/classes:
+total 152
+-rw-r--r--  1 EDGE  staff  74473 Feb 14 11:05 clearcut.PersonTest.html
+
+./build/reports/tests/test/css:
+total 16
+-rw-r--r--  1 EDGE  staff  2645 Feb 12 13:56 base-style.css
+-rw-r--r--  1 EDGE  staff  1135 Feb 12 13:56 style.css
+
+./build/reports/tests/test/js:
+total 16
+-rw-r--r--  1 EDGE  staff  5252 Feb 12 13:56 report.js
+
+./build/reports/tests/test/packages:
+total 8
+-rw-r--r--  1 EDGE  staff  1972 Feb 14 11:05 clearcut.html
+
+./build/resources:
+total 0
+drwxr-xr-x  7 EDGE  staff  224 Feb 14 11:05 main
+
+./build/resources/main:
+total 74200
+-rw-r--r--  1 EDGE  staff       163 Feb 14 11:05 application.properties
+-rw-r--r--  1 EDGE  staff  37974757 Feb 14 11:05 folders.dat
+-rw-r--r--  1 EDGE  staff       173 Feb 14 11:05 sample-data.csv
+-rw-r--r--  1 EDGE  staff      2104 Feb 14 11:05 schema-all.sql
+drwxr-xr-x  4 EDGE  staff       128 Feb 14 11:05 templates
+
+./build/resources/main/templates:
+total 16
+-rw-r--r--  1 EDGE  staff  773 Feb 14 11:05 form.html
+-rw-r--r--  1 EDGE  staff   96 Feb 14 11:05 results.html
+
+./build/test-results:
+total 0
+drwxr-xr-x  4 EDGE  staff  128 Feb 14 11:05 test
+
+./build/test-results/test:
+total 144
+-rw-r--r--  1 EDGE  staff  72502 Feb 14 11:05 TEST-clearcut.PersonTest.xml
+drwxr-xr-x  5 EDGE  staff    160 Feb 14 11:05 binary
+
+./build/test-results/test/binary:
+total 160
+-rw-r--r--  1 EDGE  staff  72244 Feb 14 11:05 output.bin
+-rw-r--r--  1 EDGE  staff    135 Feb 14 11:05 output.bin.idx
+-rw-r--r--  1 EDGE  staff    186 Feb 14 11:05 results.bin
+
+./build/tmp:
+total 0
+drwxr-xr-x  2 EDGE  staff  64 Feb 12 08:56 compileJava
+drwxr-xr-x  2 EDGE  staff  64 Feb 12 08:56 compileTestJava
+
+./build/tmp/compileJava:
+
+./build/tmp/compileTestJava:
+
+./gradle:
+total 0
+drwxr-xr-x  4 EDGE  staff  128 Feb  1 13:48 wrapper
+
+./gradle/wrapper:
+total 120
+-rw-r--r--  1 EDGE  staff  53556 Feb  1 13:48 gradle-wrapper.jar
+-rw-r--r--  1 EDGE  staff    230 Feb  1 13:48 gradle-wrapper.properties
+
+./src:
+total 0
+drwxr-xr-x  4 EDGE  staff  128 Feb  3 08:03 main
+drwxr-xr-x  3 EDGE  staff   96 Feb  3 08:03 test
+
+./src/main:
+total 0
+drwxr-xr-x  3 EDGE  staff   96 Feb  3 08:03 java
+drwxr-xr-x  7 EDGE  staff  224 Feb 14 10:04 resources
+
+./src/main/java:
+total 0
+drwxr-xr-x  19 EDGE  staff  608 Feb 14 10:43 clearcut
+
+./src/main/java/clearcut:
+total 136
+-rw-r--r--  1 EDGE  staff  1258 Feb  6 13:12 Application.java
+-rw-r--r--  1 EDGE  staff  3757 Feb 14 11:02 BatchConfiguration.java
+-rw-r--r--  1 EDGE  staff  1578 Feb 14 11:04 FileItem.java
+-rw-r--r--  1 EDGE  staff   793 Feb 14 10:56 FileItemItemProcessor.java
+-rw-r--r--  1 EDGE  staff   189 Feb 14 10:39 FileItemRepository.java
+-rw-r--r--  1 EDGE  staff  2049 Feb 12 20:30 GeneralFactory.java
+-rw-r--r--  1 EDGE  staff   440 Feb 10 17:09 Greeting.java
+-rw-r--r--  1 EDGE  staff  3598 Feb 14 11:03 GreetingController.java
+-rw-r--r--  1 EDGE  staff  1396 Feb 14 10:39 JobCompletionNotificationListener.java
+-rw-r--r--  1 EDGE  staff  1798 Feb 14 10:08 Person.java
+-rw-r--r--  1 EDGE  staff   664 Feb 10 14:38 PersonForm.java
+-rw-r--r--  1 EDGE  staff   791 Feb 14 09:58 PersonItemProcessor.java
+-rw-r--r--  1 EDGE  staff   306 Feb 14 10:17 PersonRepository.java
+-rw-r--r--  1 EDGE  staff   669 Feb 10 10:58 Quote.java
+-rw-r--r--  1 EDGE  staff   614 Feb 10 14:38 ScheduledTasks.java
+-rw-r--r--  1 EDGE  staff   658 Feb  6 08:40 Value.java
+-rw-r--r--  1 EDGE  staff  1091 Feb  6 13:16 WebController.java
+
+./src/main/resources:
+total 24
+-rw-r--r--  1 EDGE  staff   163 Feb 12 08:53 application.properties
+-rw-r--r--  1 EDGE  staff     0 Feb 14 11:08 folders.dat
+-rw-r--r--  1 EDGE  staff   173 Feb  5 14:14 sample-data.csv
+-rw-r--r--  1 EDGE  staff  2104 Feb 14 10:16 schema-all.sql
+drwxr-xr-x  4 EDGE  staff   128 Feb  6 10:18 templates
+
+./src/main/resources/templates:
+total 16
+-rw-r--r--  1 EDGE  staff  773 Feb  6 10:18 form.html
+-rw-r--r--  1 EDGE  staff   96 Feb 12 13:37 results.html
+
+./src/test:
+total 0
+drwxr-xr-x  3 EDGE  staff  96 Feb  3 08:03 java
+
+./src/test/java:
+total 0
+drwxr-xr-x  3 EDGE  staff  96 Feb 12 20:30 clearcut
+
+./src/test/java/clearcut:
+total 16
+-rwxr-xr-x  1 EDGE  staff  6127 Feb 13 15:43 PersonTest.java

@@ -40,28 +40,29 @@ public class BatchConfiguration {
 
   // tag::readerwriterprocessor[]
   @Bean
-  public FlatFileItemReader<Person> reader() {
-          return new FlatFileItemReaderBuilder<Person>()
-                 .name("personItemReader")
-                 .resource(new ClassPathResource("sample-data.csv"))
+  public FlatFileItemReader<FileItem> reader() {
+          return new FlatFileItemReaderBuilder<FileItem>()
+                 .name("FileItemItemReader")
+                 .resource(new ClassPathResource("folders.dat"))
                  .delimited()
-                 .names(new String[] {"firstName", "lastName"})
-                 .fieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
-                          setTargetType(Person.class);
+                 .names(new String[] {"mode", "links", "owner", "grp", "size", "month", "day", "time", "name"})
+                 .fieldSetMapper(new BeanWrapperFieldSetMapper<FileItem>() {{
+                          setTargetType(FileItem.class);
                   }})
                  .build();
   }
 
   @Bean
-  public PersonItemProcessor processor() {
-          return new PersonItemProcessor();
+  public FileItemItemProcessor processor() {
+          return new FileItemItemProcessor();
   }
 
   @Bean
-  public JdbcBatchItemWriter<Person> writer(DataSource dataSource) {
-          return new JdbcBatchItemWriterBuilder<Person>()
+  public JdbcBatchItemWriter<FileItem> writer(DataSource dataSource) {
+          return new JdbcBatchItemWriterBuilder<FileItem>()
                  .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                 .sql("INSERT INTO person (first_name, last_name) VALUES (:firstName, :lastName)")
+                 .sql("INSERT INTO FILE_ITEM (mode, links, owner, grp, size, month, day, time, name) " +
+                           " VALUES (:mode, :links, :owner, :grp, :size, :month, :day, :time, :name)")
                  .dataSource(dataSource)
                  .build();
   }
@@ -69,9 +70,9 @@ public class BatchConfiguration {
 
   // tag::jobstep[]
   @Bean
-  public Job importPersonJob(JobCompletionNotificationListener listener, Step step1) {
-          log.debug( "importPersonJob" );
-          return jobBuilderFactory.get("importPersonJob")
+  public Job importFileItemJob(JobCompletionNotificationListener listener, Step step1) {
+          log.debug( "importFileItemJob" );
+          return jobBuilderFactory.get("importFileItemJob")
                  .incrementer(new RunIdIncrementer())
                  .listener(listener)
                  .flow(step1)
@@ -80,9 +81,9 @@ public class BatchConfiguration {
   }
 
   @Bean
-  public Step step1(JdbcBatchItemWriter<Person> writer) {
+  public Step step1(JdbcBatchItemWriter<FileItem> writer) {
           return stepBuilderFactory.get("step1")
-                 .<Person, Person> chunk( CHUNK_SIZE )
+                 .<FileItem, FileItem> chunk( CHUNK_SIZE )
                  .reader(reader())
                  .processor(processor())
                  .writer(writer)

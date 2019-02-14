@@ -69,3 +69,18 @@ CREATE TABLE hibernate_sequence(
   id BIGINT NOT NULL PRIMARY KEY
 );
 INSERT INTO hibernate_sequence( next_val, id ) VALUES ( 1, 1 );
+
+DROP TABLE IF EXISTS file_item;
+CREATE TABLE file_item  (
+  id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  mode VARCHAR(255),
+  links VARCHAR(255),
+  owner VARCHAR(255),
+  grp VARCHAR(255),
+  size VARCHAR(255),
+  month VARCHAR(255),
+  day VARCHAR(255),
+  time VARCHAR(255),
+  name VARCHAR(255)
+);
+-- drwxr-xr-x  111 EDGE  staff     3552 Feb  3 12:58 bash

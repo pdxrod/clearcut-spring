@@ -42,6 +42,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import clearcut.Person;
 import clearcut.PersonRepository;
+import clearcut.FileItemRepository;
 import clearcut.GeneralFactory;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -52,6 +53,8 @@ public class GreetingController {
 
   @Autowired
   private PersonRepository personRepository;
+  @Autowired
+  private FileItemRepository fileItemRepository;
   private static final String TEMPLATE = "Hello, %s!";
 
   public GreetingController() throws Exception {
@@ -84,37 +87,10 @@ public class GreetingController {
     started = true;
 
     GeneralFactory factory = new GeneralFactory();
-    factory.delete();
     DataSource dataSource = factory.getMySQLDataSource();
     BatchConfiguration batchConfiguration = new BatchConfiguration();
-    JdbcBatchItemWriter<Person> writer = batchConfiguration.writer( dataSource );
-    PersonItemProcessor processor = batchConfiguration.processor();
-
-    String csvFile = factory.getFullPath( "sample-data.csv" );
-    BufferedReader br = new BufferedReader(new FileReader(csvFile));
-    List<Person> list = new ArrayList<Person>();
-    String line = null;
-    while( (line = br.readLine()) != null ) {
-      if( line.indexOf( COMMA ) > 0 ) {
-        String[] text = line.split( COMMA );
-        Person p = new Person( text[0], text[1] );
-        p = processor.process( p );
-        list.add( p );
-      }
-    }
-
-    writer.afterPropertiesSet(); // You have to do this, or you get a null pointer exception
-    writer.write( list );
-    try { br.close(); } catch (Exception e) {} // There's not much you can do about this
-
-    // FlatFileItemReader<Person> reader = batchConfiguration.reader();
-    // StepBuilderFactory stepBuilderFactory = batchConfiguration.stepBuilderFactory;
-    // StepBuilder stepBuilder = stepBuilderFactory.get("step1"); // the stepBuilderFactory is null at this point
-    // SimpleStepBuilder simpleStepBuilder = stepBuilder.<Person, Person>chunk( BatchConfiguration.CHUNK_SIZE );
-    // simpleStepBuilder = simpleStepBuilder.reader(reader);
-    // simpleStepBuilder = simpleStepBuilder.processor(processor);
-    // simpleStepBuilder = simpleStepBuilder.writer(writer);
-    // simpleStepBuilder.build();
+    JdbcBatchItemWriter<FileItem> writer = batchConfiguration.writer( dataSource );
+    FileItemItemProcessor processor = batchConfiguration.processor();
   }
 
 }
