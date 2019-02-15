@@ -12,15 +12,50 @@ public class FileItem {
   private Integer id;
 
   private String[] values;
+
+  public String[] getValues() {
+    return values;
+  }
+
+  public void setValues( String[] values ) {
+    this.values = values;
+    this.mode =  values[ 0 ];
+    this.links = values[ 1 ];
+    this.owner = values[ 2 ];
+    this.grp =   values[ 3 ];
+    this.size =  values[ 4 ];
+    this.month = values[ 5 ];
+    this.day =   values[ 6 ];
+    this.time =  values[ 7 ];
+    this.name =  values[ 8 ];
+  }
+
   private String mode;
+  public String getMode() { return this.mode; } public void setMode( String mode ) { this.mode = mode; }
+
   private String links;
+  public String getLinks() { return this.links; } public void setLinks( String links ) { this.links = links; }
+
   private String owner;
+  public String getOwner() { return this.owner; } public void setOwner( String owner ) { this.owner = owner; }
+
   private String grp;
+  public String getGrp() { return this.grp; } public void setGrp( String grp ) { this.grp = grp; }
+
   private String size;
+  public String getSize() { return this.size; } public void setSize( String size ) { this.size = size; }
+
   private String month;
+  public String getMonth() { return this.month; } public void setMonth( String month ) { this.month = month; }
+
   private String day;
+  public String getDay() { return this.day; } public void setDay( String day ) { this.day = day; }
+
   private String time;
+  public String getTime() { return this.time; } public void setTime( String time ) { this.time = time; }
+
   private String name;
+  public String getName() { return this.name; } public void setName( String name ) { this.name = name; }
 
   public static String notNull( String str ) {
     return str == null ? "" : str;
@@ -33,32 +68,15 @@ public class FileItem {
   public FileItem() {
   }
 
-  public FileItem(String[] fileListing) {
+  public FileItem(String[] values) {
     this();
-    this.setValues( fileListing );
+    this.setValues( values );
   }
 
-  public FileItem(String fileListing) {
+  public FileItem(String values) {
     this();
-    String[] arr = fileListing.split( "\\s+" );
+    String[] arr = values.split( "\\s+" );
     this.setValues( arr );
-  }
-
-  public String[] getValues() {
-    return values;
-  }
-
-  public void setValues( String[] fileListing ) {
-    this.values = fileListing;
-    this.mode =  fileListing[ 0 ];
-    this.links = fileListing[ 1 ];
-    this.owner = fileListing[ 2 ];
-    this.grp =   fileListing[ 3 ];
-    this.size =  fileListing[ 4 ];
-    this.month = fileListing[ 5 ];
-    this.day =   fileListing[ 6 ];
-    this.time =  fileListing[ 7 ];
-    this.name =  fileListing[ 8 ];
   }
 
   public Integer getId() {
