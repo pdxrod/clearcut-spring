@@ -11,7 +11,7 @@ public class FileItemItemProcessor implements ItemProcessor<FileItem, FileItem> 
 
   @Override
   public FileItem process(final FileItem fileItem) throws Exception {
-    final String[] values = (fileItem.getValues());
+    final String[] values = fileItem.getValues();
     for( int i = 0; i < values.length; i ++ )
       values[ i ] = change(values[ i ]);
 

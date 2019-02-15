@@ -17,6 +17,10 @@ public class FileItem {
     return values;
   }
 
+  public String[] values() {
+    return values;
+  }
+
   private void setValues( String[] values ) {
     this.values = values;
     this.mode =  values[ 0 ];
