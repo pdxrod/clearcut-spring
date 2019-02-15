@@ -26,11 +26,19 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
           if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
                   log.info("!!! JOB FINISHED! Time to verify the results");
 
-                  jdbcTemplate.query("SELECT first_name, last_name FROM person",
-                                     (rs, row)->new Person(
-                                             rs.getString(1),
-                                             rs.getString(2))
-                                     ).forEach(person->log.info("Found <" + person + "> in the database."));
+                  jdbcTemplate.query("SELECT mode, links, owner, grp, size, month, day, time, name FROM file_item",
+                                     (rs, row)->new FileItem(
+                                             rs.getString(1) + " " +
+                                             rs.getString(2) + " " +
+                                             rs.getString(3) + " " +
+                                             rs.getString(4) + " " +
+                                             rs.getString(5) + " " +
+                                             rs.getString(6) + " " +
+                                             rs.getString(7) + " " +
+                                             rs.getString(8) + " " +
+                                             rs.getString(9)
+                                             )
+                                     ).forEach(file_item->log.info("Found <" + file_item + "> in the database."));
           }
   }
 }

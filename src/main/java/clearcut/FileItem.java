@@ -13,11 +13,11 @@ public class FileItem {
 
   private String[] values;
 
-  public String[] getValues() {
+  private String[] getValues() {
     return values;
   }
 
-  public void setValues( String[] values ) {
+  private void setValues( String[] values ) {
     this.values = values;
     this.mode =  values[ 0 ];
     this.links = values[ 1 ];
