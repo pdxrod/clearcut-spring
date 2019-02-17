@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Controller
-@EnableWebMvc
 public class WebController implements WebMvcConfigurer {
 
     @Override
