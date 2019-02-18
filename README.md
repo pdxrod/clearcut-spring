@@ -52,8 +52,7 @@ In this folder,
 `./gradlew bootRun`
 
 In the middle of a lot of logging messages, you should see
-`Converting (firstName: Justin, lastName: Penrose) into (firstName: Justin, lastName: Penrose-Smythe)`
-and so on - the 'name processor' just adds 'Smythe' to the last name and inserts it into a database.
+`Converting (something) into (SOMETHING ELSE)`
 
 Every 59 seconds, you'll see the time output. Just adding @EnableScheduling to Application.java and a file called
 ScheduledTasks.java makes this happen. In the real world, you could schedule something useful.

@@ -4,28 +4,33 @@
     <script src="https://unpkg.com/react@15/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
   </head>
-
 	<body>
-		Congratulations! You are old enough to sign up for this site.
 
     <div id="root"></div>
 
-     <script>
+    <script>
          window.onload = function()
          {
+             var name = window.location.search.substr(1);
+             var eqls = name.indexOf( "=" );
+             if( eqls < 0 )
+               name = "Anonymous";
+             else
+               name = name.substr( eqls + 1 );
+
              class Greetings extends React.Component
              {
                  render()
                  {
-                     return React.createElement('h1', null, 'Greetings, ' + this.props.name + '!');
+                     return React.createElement('h3', null, 'Congratulations, ' + name + '! You are old enough to sign up for this site.');
                  }
              }
              ReactDOM.render(
-                 React.createElement(Greetings, { name : 'Chris' }),
+                 React.createElement(Greetings, { name : name }),
                  document.getElementById('root')
              );
          };
-     </script>
+    </script>
 
 	</body>
 </html>
