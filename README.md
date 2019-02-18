@@ -58,32 +58,7 @@ and so on - the 'name processor' just adds 'Smythe' to the last name and inserts
 Every 59 seconds, you'll see the time output. Just adding @EnableScheduling to Application.java and a file called
 ScheduledTasks.java makes this happen. In the real world, you could schedule something useful.
 
-Then navigate to http://localhost:8080/greeting?name=Alan in a browser, and you
-should see some JSON like this:
-
-     {"content":"Hello, Alan!","_links":{"self":{"href":"http://localhost:8080/greeting?name=Alan"}}}
-
-You can
-
-`curl http://localhost:8080/greeting?name=Alan`
-
-instead of using your browser - get `curl` from
-[curl.haxx.se/download.html](https://curl.haxx.se/download.html).
-
-Also
-
-`curl http://localhost:8080/add?name=Alan`
-
-`curl http://localhost:8080/add?name=Chantel+Bloggs`
-
-     {"name": "Chantel Bloggs", "saved": true}
-
-and
-
-`curl http://localhost:8080/all`
-
-     [{"id":1,"lastName":"Bloggs","firstName":"Alan","name":"Alan Bloggs"},
-     {"id":2,"lastName":"Bloggs","firstName":"Chantel","name":"Chantel Bloggs"}]
+Then navigate to http://localhost:8080/ in a browser, and follow the instructions
 
 And most important of all, don't forget to `./gradlew test`
 

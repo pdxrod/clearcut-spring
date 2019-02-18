@@ -1,11 +1,31 @@
 <html>
+  <head>
+    <title>React Congratulations</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+  </head>
+
 	<body>
 		Congratulations! You are old enough to sign up for this site.
 
-    <div id="container"></div>
-    <script src="https://fb.me/react-15.0.0.js"></script>
-    <script src="https://fb.me/react-dom-15.0.0.js"></script>
-    <script type="text/javascript" th:src="@{/js/lib/babel.min.js}" />
-    <script type="text/babel" th:src="@{/js/src/everything.js}" />
+    <div id="root"></div>
+
+     <script>
+         window.onload = function()
+         {
+             class Greetings extends React.Component
+             {
+                 render()
+                 {
+                     return React.createElement('h1', null, 'Greetings, ' + this.props.name + '!');
+                 }
+             }
+             ReactDOM.render(
+                 React.createElement(Greetings, { name : 'Chris' }),
+                 document.getElementById('root')
+             );
+         };
+     </script>
+
 	</body>
 </html>
