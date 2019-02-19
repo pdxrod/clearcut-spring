@@ -81,6 +81,7 @@ CREATE TABLE file_item  (
   month VARCHAR(255),
   day VARCHAR(255),
   time VARCHAR(255),
-  name VARCHAR(255)
+  name VARCHAR(255),
+  vals VARCHAR(1023)
 );
 -- drwxr-xr-x  111 EDGE  staff     3552 Feb  3 12:58 bash

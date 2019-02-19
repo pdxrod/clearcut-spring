@@ -11,11 +11,10 @@ public class FileItemItemProcessor implements ItemProcessor<FileItem, FileItem> 
 
   @Override
   public FileItem process(final FileItem fileItem) throws Exception {
-    final String[] values = {"mode", "links", "owner", "grp", "size", "month", "day", "time", "name"};
-    for( int i = 0; i < values.length; i ++ )
-      values[ i ] = change(values[ i ]);
-
-    final FileItem transformedFileItem = new FileItem(values);
+//    final String[] values = {"mode", "links", "owner", "grp", "size", "month", "day", "time", "name"};
+    String vals = fileItem.getVals();
+    vals = change( vals );
+    final FileItem transformedFileItem = new FileItem(vals);
     log.info("\nConverting (" + fileItem + ") into (" + transformedFileItem + ")");
 
     return transformedFileItem;

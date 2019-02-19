@@ -11,18 +11,19 @@ public class FileItem {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
 
-  private String[] values;
+  private String vals; // Whitespace-delimited, e.g. 'drwxr-xr-x  111 EDGE  staff     3552 Feb  3 12:58 bash'
 
-  private String[] getValues() {
-    return values;
+  public String getVals() {
+    return vals;
   }
 
-  public String[] values() {
-    return values;
+  private void setVals( String vals ) {
+    setValues( vals );
   }
 
-  private void setValues( String[] values ) {
-    this.values = values;
+  private void setValues( String vals ) {
+    this.vals = vals;
+    String[] values = vals.split( "\\s+" );
     this.mode =  values[ 0 ];
     this.links = values[ 1 ];
     this.owner = values[ 2 ];
@@ -32,6 +33,22 @@ public class FileItem {
     this.day =   values[ 6 ];
     this.time =  values[ 7 ];
     this.name =  values[ 8 ];
+  }
+
+  public FileItem() {
+  }
+
+  public FileItem(String vals) {
+    this();
+    this.setVals( vals );
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   private String mode;
@@ -61,39 +78,9 @@ public class FileItem {
   private String name;
   public String getName() { return this.name; } public void setName( String name ) { this.name = name; }
 
-  public static String notNull( String str ) {
-    return str == null ? "" : str;
-  }
-
-  public static boolean mt( String str ) {
-    return str == null || str.trim() == "";
-  }
-
-  public FileItem() {
-  }
-
-  public FileItem(String[] values) {
-    this();
-    this.setValues( values );
-  }
-
-  public FileItem(String values) {
-    this();
-    String[] arr = values.split( "\\s+" );
-    this.setValues( arr );
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   @Override
   public String toString() {
-    return "name: " + name;
+    return "fileitem: " + this.vals;
   }
 
 }
