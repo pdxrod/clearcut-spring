@@ -45,7 +45,7 @@ public class BatchConfiguration {
                  .name("FileItemItemReader")
                  .resource(new ClassPathResource("folders.dat"))
                  .delimited()
-                 .names(new String[] {"mode", "links", "owner", "grp", "size", "month", "day", "time", "name"})
+                 .names(new String[] {"mode", "links", "owner", "grp", "size", "month", "day", "time", "name", "vals"})
                  .fieldSetMapper(new BeanWrapperFieldSetMapper<FileItem>() {{
                           setTargetType(FileItem.class);
                   }})
@@ -61,8 +61,8 @@ public class BatchConfiguration {
   public JdbcBatchItemWriter<FileItem> writer(DataSource dataSource) {
           return new JdbcBatchItemWriterBuilder<FileItem>()
                  .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-                 .sql("INSERT INTO FILE_ITEM (mode, links, owner, grp, size, month, day, time, name) " +
-                           " VALUES (:mode, :links, :owner, :grp, :size, :month, :day, :time, :name)")
+                 .sql("INSERT INTO FILE_ITEM (mode, links, owner, grp, size, month, day, time, name, vals) " +
+                           " VALUES (:mode, :links, :owner, :grp, :size, :month, :day, :time, :name, vals)")
                  .dataSource(dataSource)
                  .build();
   }

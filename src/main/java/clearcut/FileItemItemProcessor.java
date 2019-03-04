@@ -11,7 +11,6 @@ public class FileItemItemProcessor implements ItemProcessor<FileItem, FileItem> 
 
   @Override
   public FileItem process(final FileItem fileItem) throws Exception {
-//    final String[] values = {"mode", "links", "owner", "grp", "size", "month", "day", "time", "name"};
     String vals = fileItem.getVals();
     vals = change( vals );
     final FileItem transformedFileItem = new FileItem(vals);
